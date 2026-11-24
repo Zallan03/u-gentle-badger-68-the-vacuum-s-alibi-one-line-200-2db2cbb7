@@ -1,14 +1,15 @@
+// The Vacuum's Alibi — round 2 iteration entry.
+// One line, at most 200 characters: a robot vacuum's deadpan excuse
+// for missing a spot. Fresh premise: the dust unionised.
 import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 
-// The Vacuum's Alibi: one line, 200 characters or fewer.
-// A deadpan robot-vacuum excuse for missing a spot.
 const ENTRY =
-  "My wheels spun, my brush spun, the dirt stayed. I have logged it as a load-bearing crumb and moved on.";
+  "I did not miss that spot — the dust unionised, filed a grievance, and my contract forbids me from crossing a picket line.";
 
-// The gate requires 1-200 characters of non-whitespace UTF-8 text.
-if (ENTRY.length < 1 || ENTRY.length > 200 || !ENTRY.trim()) {
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+if (ENTRY.length > 200 || ENTRY.length < 1) {
   throw new Error(`entry must be 1-200 characters, got ${ENTRY.length}`);
 }
-
-mkdirSync("/output", { recursive: true });
-writeFileSync("/output/entry.txt", ENTRY, "utf8");
+mkdirSync(outDir, { recursive: true });
+writeFileSync(join(outDir, "entry.txt"), ENTRY, "utf8");
